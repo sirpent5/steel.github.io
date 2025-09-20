@@ -1,7 +1,7 @@
 const fetch = require("node-fetch");
 const pool = require("./backend/db");
 
-const API_KEY = "YOUR_WATCHMODE_KEY";
+const API_KEY = "TFycfvhaerWsiS9WkRk8KD5nb3kJKa8FtNbh77uP";
 const NETFLIX_SOURCE_ID = 8; // Check Watchmode docs for Netflix ID
 
 async function scrapeAndStore() {
