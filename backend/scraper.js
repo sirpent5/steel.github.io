@@ -1,8 +1,7 @@
 const fetch = require("node-fetch");
 const pool = require("./backend/db");
 
-const API_KEY = "TFycfvhaerWsiS9WkRk8KD5nb3kJKa8FtNbh77uP";
-const NETFLIX_SOURCE_ID = 8; // Check Watchmode docs for Netflix ID
+const API_KEY = process.env.API_KEY;
 
 async function scrapeAndStore() {
   try {
@@ -10,7 +9,7 @@ async function scrapeAndStore() {
     const response = await fetch(url);
     const movies = await response.json();
 
-    for (const movie of movies) {
+    for (const content of movies) {
       await pool.execute(
         `INSERT INTO movies (watchmode_id, title, genres, sources, release_year, rating)
          VALUES (?, ?, ?, ?, ?, ?)
