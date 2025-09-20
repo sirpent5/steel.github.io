@@ -20,6 +20,9 @@ function Script() {
 
   return (
     <div>
+      <h1>Welcome to our SteelHacks Project - Name TBD</h1>
+      <h2>Tired of paying for too many subscriptions?</h2>
+      <h2>Evaluate your wants to find the best plan for you!</h2>
       <button onClick={fetchData} disabled={loading}>
         {loading ? 'Loading...' : 'Get Data'}
       </button>

@@ -12,3 +12,10 @@ body {
   display: inline-block;
   text-align: left;
 }
+
+body {
+  background-color: #2f2f2f; 
+  color: white; 
+  margin: 0; 
+  font-family: sans-serif; 
+}
