@@ -1,6 +1,6 @@
+
 const pool = require('./db');
-const dotenv = require('dotenv');
-dotenv.config({ path: './backend/.env' });
+
 
 async function rankByGenre(genreIds)
 {
@@ -57,3 +57,9 @@ module.exports = {
   compareServices
 };
 
+async function test() {
+const fool = await compareServices('157', '372');
+console.log(`Jaccard Index: ${fool}`);
+}
+
+test();
