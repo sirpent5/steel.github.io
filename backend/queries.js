@@ -18,8 +18,7 @@ async function rankByGenre(genreIds)
     return rows;
 }
 
-async function compareServices(serviceIdA, serviceIdB)
-{
+async function compareServices(serviceIdA, serviceIdB) {
     const [rows] = await pool.query(
         `
         WITH 
@@ -37,17 +36,19 @@ async function compareServices(serviceIdA, serviceIdB)
         UnionCounts AS (
             SELECT 
                 (SELECT COUNT(*) FROM A) +
-                (SELECT COUNT(*) FROM B) -
+                (SELECT COUNT(*) FROM B) - 
                 (SELECT overlap FROM Intersection) AS union_size
         )
         SELECT 
-            (SELECT overlap FROM Intersection) / union_size AS jaccard
-        FROM UnionCounts;`,
+            (SELECT overlap FROM Intersection) / NULLIF(union_size, 0) AS jaccard
+        FROM UnionCounts;
+        `,
         [serviceIdA, serviceIdB]
     );
 
-    return rows[0].jaccard * 100; 
+    return (rows[0]?.jaccard ?? 0) * 100;
 }
+
 
 module.exports = {
   rankByGenre,
