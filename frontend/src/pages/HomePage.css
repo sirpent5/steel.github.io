@@ -1,0 +1,80 @@
+.home-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #333;
+  position: relative;
+}
+
+body {
+  background-color: #42a1c6;
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
+/* bubbles */
+.bubbles {
+  position: absolute;
+  bottom: 0;
+  z-index: 5;
+  background-color: white;
+  border-radius: 50%;
+  opacity: .50;
+  width: 40px;
+  height: 40px;
+  animation: up 4s infinite;
+}
+.bubble-2 { left: 350px; animation: up 2s infinite; }
+.bubble-3 { left: 750px; opacity: .30; animation: up 5s infinite; }
+.bubble-4 { left: 1150px; animation: up 6s infinite; }
+.bubble-5 { left: 50px; animation: up 5s infinite; }
+.bubble-6 { left: 300px; opacity: .30; animation: up 3s infinite; }
+.bubble-7 { left: 670px; animation: up 4s infinite; }
+.bubble-8 { left: 1050px; opacity: .30; animation: up 3s infinite; }
+
+@keyframes up {
+  100% { transform: translateY(-800px); }
+}
+
+/* fish animation */
+.fish {
+  position: relative;
+  width: 150px;
+  height: auto;
+  z-index: 10;
+  animation: swim 3s linear infinite;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
+
+.finalFish {
+  position: absolute;
+  top: 20%;
+  transform: translateY(80%);
+  width: 550px;
+  height: auto;
+  z-index: 10;
+  animation: swim-to-center 2s linear 2s forwards;
+  visibility: hidden;
+  transition: transform 0.3s;
+}
+
+.finalFish:hover {
+  transform: scale(1.5);
+  cursor: pointer;
+}
+
+@keyframes swim-to-center {
+  0% { visibility: hidden; transform: translateX(100vw); }
+  1% { visibility: visible; transform: translateX(100vw); }
+  100% { visibility: visible; transform: translateX(-250px); }
+}
+
+@keyframes swim {
+  0% { transform: translateY(-50px) translateX(0) rotate(30deg); }
+  25% { transform: translateY(50px) translateX(250px) rotate(20deg); }
+  50% { transform: translateY(100px) translateX(500px); }
+  75% { transform: translateY(50px) translateX(100vw) rotate(-20deg); }
+  100% { transform: translateY(-170px) translateX(100vw) rotate(-40deg); }
+}
