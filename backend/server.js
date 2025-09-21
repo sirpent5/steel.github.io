@@ -3,6 +3,8 @@ const express = require('express');
 const cors = require('cors');
 const { compareServices } = require('./queries');
 const { SERVICES, GENRES } = require('./constants'); 
+const pool = require('./db');
+
 
 const app = express();
 app.use(cors());
@@ -10,8 +12,8 @@ app.use(express.json());
 
 app.get('/api/compare-services', async (req, res) => {
     try {
-        const serviceIdA = parseInt(req.query.serviceA, 10);
-        const serviceIdB = parseInt(req.query.serviceB, 10);
+        const serviceIdA = Number(req.query.serviceA);
+        const serviceIdB = Number(req.query.serviceB);
         console.log(`Comparing services: ${serviceIdA} and ${serviceIdB}`);
         if (!serviceIdA || !serviceIdB) {
             return res.status(400).json({ error: 'Two service IDs are required' });
