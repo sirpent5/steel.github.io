@@ -1,4 +1,6 @@
 const pool = require('./db');
+const dotenv = require('dotenv');
+dotenv.config({ path: './backend/.env' });
 
 async function rankByGenre(genreIds)
 {
