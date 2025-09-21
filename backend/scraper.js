@@ -60,35 +60,35 @@ async function main() {
 main();
 
 
-// //const fetch = require('node-fetch');
-// // const dotenv = require('dotenv');
-// // dotenv.config({ path: './backend/.env' });
+// const fetch = require('node-fetch');
+// const dotenv = require('dotenv');
+// dotenv.config({ path: './backend/.env' });
 
-// // const API_KEY = process.env.API_KEY;
+// const API_KEY = process.env.API_KEY;
 
-// // async function getGenres() {
-// //     try {
-// //         const url = `https://api.watchmode.com/v1/genres/?apiKey=${API_KEY}`;
-// //         const response = await fetch(url);
-// //         const genres = await response.json();
+// async function getGenres() {
+//     try {
+//         const url = `https://api.watchmode.com/v1/genres/?apiKey=${API_KEY}`;
+//         const response = await fetch(url);
+//         const genres = await response.json();
 
-// //         if (genres && genres.length > 0) {
-// //             console.log("Here is a list of all genres:");
-// //             console.log("-------------------------------");
-// //             genres.forEach(genre => {
-// //                 console.log(`ID: ${genre.id} - Name: ${genre.name}`);
-// //             });
-// //         } else {
-// //             console.log("No genres found. Check your API key or connection.");
-// //         }
-// //     } catch (err) {
-// //         console.error("Error fetching genres:", err);
-// //     }
-// // }
+//         if (genres && genres.length > 0) {
+//             console.log("Here is a list of all genres:");
+//             console.log("-------------------------------");
+//             genres.forEach(genre => {
+//                 console.log(`ID: ${genre.id} - Name: ${genre.name}`);
+//             });
+//         } else {
+//             console.log("No genres found. Check your API key or connection.");
+//         }
+//     } catch (err) {
+//         console.error("Error fetching genres:", err);
+//     }
+// }
 
-// // getGenres();
+// getGenres();
 
-// 
+
 
 //const fetch = require('node-fetch');
 // const dotenv = require('dotenv');
