@@ -1,4 +1,4 @@
-// constants to use for api scraping :)
+// constants :)
 
 const SERVICES = 
 {
@@ -17,12 +17,12 @@ const SERVICES =
 
 const GENRES = 
 {
-  ACTION: {id: 1, name: "Action"},
+  /*ACTION: {id: 1, name: "Action"},
   ADULT: {id: 30, name: "Adult"},
   ANIMATION: {id: 2, name: "Animation"},
   ANIME: {id: 33, name: "Anime"},
   BIOGRAPHY: {id: 31, name: "Biography"},
-  COMEDY: {id: 4, name: "Comedy"},
+  COMEDY: {id: 4, name: "Comedy"},*/
   CRIME: {id: 5, name: "Crime"},
   DOCUMENTARY: {id: 6, name: "Documentary"},
   DRAMA: {id: 7, name: "Drama"},
@@ -54,9 +54,24 @@ const GENRES =
   WESTERN: {id: 19, name: "Western"}
 };
 
+const PRICES = 
+{
+  NETFLIX: {default: 7.99, adfree: 17.99},
+  HULU:  {student: 1.99, default: 9.99, adfree: 18.99},
+  DISNEY_PLUS: {default: 9.99, adfree: 15.99},
+  AMAZON_ID: {student: 7.49, default: 8.99},
+  PEACOCK:  {default: 7.99, adfree: 16.99},
+  APPLE_TV:  {default: 12.99},
+  MAX: {student: 4.99, default: 9.99, adfree: 16.99},
+  TUBI: {default: 0},
+  PARAMOUNT: {default: 7.99, adfree: 12.99},
+  FUBO: {default: 84.99},
+  CRUNCHYROLL: {default: 10.99, adfree: 19.99}
+};
 
 
 module.exports = {
   SERVICES,
-  GENRES
+  GENRES,
+  PRICES
 };
