@@ -1,10 +1,11 @@
+// src/index.jsx
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import Script from './script.jsx';
-import './style.css';
+import App from './App'; // Import the new App component
+import './style.css'; // Your global styles
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <Script />
+    <App />
   </React.StrictMode>
 );

@@ -1,6 +1,7 @@
+// src/pages/EvaluatePage.js
 import React, { useState } from 'react';
 
-function Script() {
+function EvaluatePage() {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -20,9 +21,7 @@ function Script() {
 
   return (
     <div>
-      <h1>Welcome to our SteelHacks Project - Name TBD</h1>
-      <h2>Tired of paying for too many subscriptions?</h2>
-      <h2>Evaluate your wants to find the best plan for you!</h2>
+      <h1>Evaluate Your Subscriptions</h1>
       <button onClick={fetchData} disabled={loading}>
         {loading ? 'Loading...' : 'Get Data'}
       </button>
@@ -39,4 +38,4 @@ function Script() {
   );
 }
 
-export default Script;
+export default EvaluatePage;
