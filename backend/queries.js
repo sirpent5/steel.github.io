@@ -1,4 +1,3 @@
-
 const pool = require('./db');
 
 
@@ -13,7 +12,7 @@ async function rankByGenre(genreIds)
             ON movie_sources.content_id = content_genres.content_id
         WHERE content_genres.genre_id IN (?)
         GROUP BY streaming_services.id, streaming_services.name
-        ORDER BY movie_count DESC;`
+        ORDER BY movie_count DESC;`,
         [genreIds]
     );
 
@@ -23,32 +22,21 @@ async function rankByGenre(genreIds)
 async function compareServices(serviceIdA, serviceIdB) {
     const [rows] = await pool.query(
         `
-        WITH 
-        A AS (
-            SELECT content_id FROM movie_sources WHERE service_id = ?
-        ),
-        B AS (
-            SELECT content_id FROM movie_sources WHERE service_id = ?
-        ),
-        Intersection AS (
-            SELECT COUNT(*) AS overlap
-            FROM A
-            INNER JOIN B ON A.content_id = B.content_id
-        ),
-        UnionCounts AS (
-            SELECT 
-                (SELECT COUNT(*) FROM A) +
-                (SELECT COUNT(*) FROM B) - 
-                (SELECT overlap FROM Intersection) AS union_size
-        )
-        SELECT 
-            (SELECT overlap FROM Intersection) / NULLIF(union_size, 0) AS jaccard
-        FROM UnionCounts;
+        SELECT
+            COUNT(DISTINCT m1.content_id) AS overlap,
+            (SELECT COUNT(*) FROM movie_sources WHERE service_id = ?) +
+            (SELECT COUNT(*) FROM movie_sources WHERE service_id = ?) -
+            COUNT(DISTINCT m1.content_id) AS union_size
+        FROM movie_sources m1
+        INNER JOIN movie_sources m2
+            ON m1.content_id = m2.content_id
+        WHERE m1.service_id = ? AND m2.service_id = ?;
         `,
-        [serviceIdA, serviceIdB]
+        [serviceIdA, serviceIdB, serviceIdA, serviceIdB]
     );
 
-    return (rows[0]?.jaccard ?? 0) * 100;
+    const jaccard = rows[0]?.overlap / (rows[0]?.union_size || 1);
+    return jaccard * 100;
 }
 
 
