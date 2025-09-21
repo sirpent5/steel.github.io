@@ -1,0 +1,184 @@
+/* frontend/src/pages/HomePage.css */
+
+.home-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  max-width: 100vw;
+  background-color: #333;
+  position: relative; /* Make sure this is here for bubbles */
+}
+
+.logo-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  color: #fff;
+}
+
+.logo-link img {
+  width: 15rem;
+  height: auto;
+  display: block; /* Add this line to ensure the animation works */
+  animation: float 3s ease-in-out infinite;
+}
+
+.logo-link p {
+  margin-top: 1rem;
+  font-family: sans-serif;
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+/* This is the keyframes animation */
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+
+.home-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  
+  background-color: #333;
+  position: relative; /* Make sure this is here for bubbles */
+}
+
+body {
+  background-color: #42a1c6;
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
+/* Bubbles */
+.bubbles {
+  position: absolute;
+  bottom: 0;
+  z-index: 5;
+  margin-right: 50px;
+  background-color: white;
+  border-radius: 50%;
+  opacity: .50;
+  width: 40px;
+  height: 40px;
+  animation: up 4s infinite;
+}
+
+.bubble-2 {
+  left: 350px;
+  animation: up 2s infinite;
+}
+
+.bubble-3 {
+  left: 750px;
+  opacity: .30;
+  animation: up 5s infinite;
+}
+
+.bubble-4 {
+  left: 1150px;
+  animation: up 6s infinite;
+}
+
+.bubble-5 {
+  left: 50px;
+  animation: up 5s infinite;
+}
+
+.bubble-6 {
+  left: 300px;
+  opacity: .30;
+  animation: up 3s infinite;
+}
+
+.bubble-7 {
+  left: 670px;
+  animation: up 4s infinite;
+}
+
+.bubble-8 {
+  left: 1050px;
+  opacity: .30;
+  animation: up 3s infinite;
+}
+
+/* Bubbles Animation */
+@keyframes up {
+  100% {
+    transform: translateY(-800px);
+  }
+}
+
+/* StreamLine Logo */
+.fish {
+  position: relative; 
+  width: 150px; 
+  height: auto; 
+  z-index: 10;
+  animation: swim 3s linear infinite;
+  animation-iteration-count: 1; /* Ensures the animation runs only once */
+  animation-fill-mode: forwards;
+}
+
+.finalFish {
+    position: absolute;
+    top: 20%;
+    transform: translateY(80%);
+    width: 550px;
+    height: auto;
+    z-index: 10;
+    
+    /* Corrected animation shorthand: duration (4s), timing (linear), delay (4s), fill-mode (forwards) */
+    animation: swim-to-center 2s linear 2s forwards;
+    
+    /* Initially hide the fish until the animation starts */
+    visibility: hidden;
+}
+
+/* Corrected keyframes for the final fish */
+@keyframes swim-to-center {
+  0% {
+    visibility: hidden;
+    transform: translateX(100vw);
+  }
+  1% {
+    visibility: visible;
+    transform: translateX(100vw);
+  }
+  100% {
+    visibility: visible;
+    /* Correctly centers the fish */
+    transform: translateX(-250px);
+  }
+ }
+@keyframes swim {
+  0% {
+    transform: translateY(-50px) translateX(0) rotate(30deg);
+  }
+  25% { 
+    transform: translateY(50px) translateX(250px) rotate(20deg);
+  }
+  50% {
+    transform: translateY(100px) translateX(500px);
+  }
+  75% {
+    transform: translateY(50px) translateX(100vw) rotate(-20deg);
+  }
+  100% {
+    transform: translateY(-170px) translateX(100vw) rotate(-40deg);
+    display: none; 
+  }
+  
+}

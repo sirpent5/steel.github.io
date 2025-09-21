@@ -4,7 +4,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import './Header.css';
 
-import logo from '../assets/StreamLineLogo-removebg-preview.png';
+import logo from '../assets/StreamLineLogo.png';
 
 const Header = () => {
   return (
