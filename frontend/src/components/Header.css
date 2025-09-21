@@ -1,0 +1,73 @@
+/* This is the combined code for your home page and header styles. */
+
+/* --- HomePage.css --- */
+.home-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #333;
+}
+
+.logo-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  color: #fff;
+}
+
+.logo-link img {
+  width: 15rem;
+  height: auto;
+}
+
+.logo-link p {
+  margin-top: 1rem;
+  font-family: sans-serif;
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+/* frontend/src/components/Header.css */
+
+.logo-icon {
+  width: 50px;
+  height: auto;
+}
+
+.header-tabs {
+  display: flex;
+  justify-content: center;
+  align-items: center; /* Vertically center all tabs */
+  background-color: #f0f0f0;
+  padding: 1rem 0;
+  border-bottom: 1px solid #ddd;
+  gap: 2rem;
+}
+
+.tab-link {
+  display: flex; /* Make each tab a flex container */
+  justify-content: center; /* Horizontally center content */
+  align-items: center; /* Vertically center content */
+  text-decoration: none;
+  color: #333;
+  font-family: Arial, sans-serif;
+  font-weight: bold;
+  padding: 0.5rem 1.5rem;
+  border-radius: 20px;
+  transition: all 0.3s ease-in-out;
+  text-align: center;
+}
+
+.tab-link:hover {
+  background-color: #DDDDDD;
+  color: #000;
+  transform: translateY(-2px);
+}
+
+.tab-link.active-tab {
+  background-color: #6E7897;
+  color: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}

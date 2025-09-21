@@ -1,7 +1,7 @@
-// src/pages/EvaluatePage.js
+// frontend/src/pages/EvaluationPage.jsx
 import React, { useState } from 'react';
 
-function EvaluatePage() {
+function EvaluationPage() {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -21,7 +21,7 @@ function EvaluatePage() {
 
   return (
     <div>
-      <h1>Evaluate Your Subscriptions</h1>
+      <h1>Evaluation Page</h1>
       <button onClick={fetchData} disabled={loading}>
         {loading ? 'Loading...' : 'Get Data'}
       </button>
@@ -38,4 +38,4 @@ function EvaluatePage() {
   );
 }
 
-export default EvaluatePage;
+export default EvaluationPage;

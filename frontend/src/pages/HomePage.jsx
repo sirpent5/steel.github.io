@@ -1,11 +1,15 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import logo from '../assets/StreamLineLogo-removebg-preview.png';
+import './HomePage.css';
 
 const HomePage = () => {
   return (
-    <div>
-      <h1>Welcome to the SteelHacks Project!</h1>
-      <p>Tired of paying for too many subscriptions?</p>
-      <p>Evaluate your wants to find the best plan for you!</p>
+    <div className="home-container">
+      <Link to="/app" className="logo-link">
+        <img src={logo} alt="Project Logo" />
+        <p>Click fish to StreamLine!</p>
+      </Link>
     </div>
   );
 };
