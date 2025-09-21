@@ -51,14 +51,15 @@ async function allMovies(SERVICE_ID, SERVICE_NAME) {
 }
 
 async function main() {
+  await allMovies(79, CRUNCHYROLL.name);
 
   let conn;
-  for (const sourceName in SOURCES) {
-    const source = SOURCES[sourceName];
-    console.log(`\n--- Starting scrape for ${source.name} ---`);
-    await allMovies(source.id, source.name); // 👈 Correct: Use await here
-    console.log(`--- Finished scrape for ${source.name} ---`);
-  }
+  // for (const sourceName in SOURCES) {
+  //   const source = SOURCES[sourceName];
+  //   console.log(`\n--- Starting scrape for ${source.name} ---`);
+  //   await allMovies(source.id, source.name); // 👈 Correct: Use await here
+  //   console.log(`--- Finished scrape for ${source.name} ---`);
+  // }
   console.log('\nAll scraping tasks completed.');
     conn.release();
   await pool.end(); // 👈 Correct: End the pool to allow process to exit
@@ -66,3 +67,4 @@ async function main() {
 
 // Call the main function to start the process
 main();
+
