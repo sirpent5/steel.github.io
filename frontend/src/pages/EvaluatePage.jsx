@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import './EvaluatePage.css';
 
-// You would typically import this from a constants file, e.g., '../constants/services.js'
+// Streaming services
 const SERVICES = {
     NETFLIX: { id: 203, name: "Netflix" },
     HULU: { id: 157, name: "Hulu" },
@@ -9,13 +10,13 @@ const SERVICES = {
     PEACOCK: { id: 388, name: "Peacock" },
     APPLE_TV: { id: 371, name: "AppleTV" },
     MAX: { id: 387, name: "Max" },
-    TUBI: { id: 296, name: "Tubi"},
-    PARAMOUNT: { id: 444, name: "Paramount"},
-    FUBO: { id: 373, name: "Fubo"},
-    CRUNCHYROLL: { id: 79, name: "Crunchyroll"},
+    TUBI: { id: 296, name: "Tubi" },
+    PARAMOUNT: { id: 444, name: "Paramount" },
+    FUBO: { id: 373, name: "Fubo" },
+    CRUNCHYROLL: { id: 79, name: "Crunchyroll" },
 };
 
-const App = () => {
+const EvaluatePage = () => {
     const [serviceA, setServiceA] = useState('');
     const [serviceB, setServiceB] = useState('');
     const [jaccardIndex, setJaccardIndex] = useState(null);
@@ -25,6 +26,7 @@ const App = () => {
     const handleCompareServices = async () => {
         if (!serviceA || !serviceB || serviceA === serviceB) {
             setError("Please select two different services to compare.");
+            setJaccardIndex(null);
             return;
         }
 
@@ -33,8 +35,10 @@ const App = () => {
         setJaccardIndex(null);
 
         try {
-            const response = await fetch(`http://localhost:5000/api/compare-services?serviceA=${serviceA}&serviceB=${serviceB}`);
-            
+            const response = await fetch(
+                `http://localhost:5000/api/compare-services?serviceA=${Number(serviceA)}&serviceB=${Number(serviceB)}`
+            );
+
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
@@ -44,72 +48,64 @@ const App = () => {
 
         } catch (err) {
             setError(err.message);
-
-
         } finally {
             setLoading(false);
         }
     };
 
     return (
-        <div className="bg-gray-900 min-h-screen text-white flex items-center justify-center">
-            <div className="container bg-gray-800 rounded-xl shadow-lg p-8 max-w-xl w-full">
-                <h1 className="text-3xl font-bold text-center mb-6 text-gray-100">Compare Streaming Services</h1>
-                
-                <div className="flex flex-col md:flex-row items-center justify-center gap-4 mb-6">
-                    <select
-                        id="serviceA"
-                        value={serviceA}
-                        onChange={(e) => setServiceA(e.target.value)}
-                        className="comparison-input bg-gray-700 text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    >
-                        <option value="">Select Service A</option>
-                        {Object.values(SERVICES).map(service => (
-                            <option key={service.id} value={service.id}>{service.name}</option>
-                        ))}
-                    </select>
+        <div className="evaluate-container">
+            <div className="evaluate-card">
+                <h1>Compare Streaming Services</h1>
 
-                    <div className="text-xl font-bold text-gray-400">vs</div>
+                <select
+                    className="evaluate-select"
+                    value={serviceA}
+                    onChange={(e) => setServiceA(e.target.value)}
+                >
+                    <option value="">Select Service A</option>
+                    {Object.values(SERVICES).map(service => (
+                        <option key={service.id} value={service.id}>
+                            {service.name}
+                        </option>
+                    ))}
+                </select>
 
-                    <select
-                        id="serviceB"
-                        value={serviceB}
-                        onChange={(e) => setServiceB(e.target.value)}
-                        className="comparison-input bg-gray-700 text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    >
-                        <option value="">Select Service B</option>
-                        {Object.values(SERVICES).map(service => (
-                            <option key={service.id} value={service.id}>{service.name}</option>
-                        ))}
-                    </select>
-                </div>
-                
-                <div className="text-center">
-                    <button
-                        onClick={handleCompareServices}
-                        disabled={loading}
-                        className="comparison-button bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 px-6 rounded-lg transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
-                    >
-                        {loading ? 'Comparing...' : 'Compare'}
-                    </button>
-                </div>
-                
+                <select
+                    className="evaluate-select"
+                    value={serviceB}
+                    onChange={(e) => setServiceB(e.target.value)}
+                >
+                    <option value="">Select Service B</option>
+                    {Object.values(SERVICES).map(service => (
+                        <option key={service.id} value={service.id}>
+                            {service.name}
+                        </option>
+                    ))}
+                </select>
+
+                <button
+                    className="compare-button"
+                    onClick={handleCompareServices}
+                    disabled={loading}
+                >
+                    {loading ? 'Comparing...' : 'Compare'}
+                </button>
+
                 {jaccardIndex !== null && (
-                    <div className="result mt-6 text-green-400">
+                    <div className="result success">
                         The Jaccard Index is: <strong>{jaccardIndex.toFixed(2)}%</strong>
                     </div>
                 )}
-                
+
                 {error && (
-                    <div className="result mt-6 text-red-400">
+                    <div className="result error">
                         Error: {error}
                     </div>
                 )}
-
             </div>
         </div>
     );
 };
 
-export default App;
-
+export default EvaluatePage;

@@ -1,0 +1,27 @@
+.attributes-container {
+  padding: 2rem;
+  max-width: 800px;
+  margin: 0 auto;
+  font-family: sans-serif;
+  color: #f0f0f0; /* or match your homepage text color */
+}
+
+.attributes-list {
+  list-style: none; /* removes default bullets */
+  padding: 0;
+}
+
+.attributes-list li {
+  margin-bottom: 1rem;
+  padding-left: 0; /* remove extra padding */
+  line-height: 1.6;
+}
+
+.attributes-list a {
+  color: #42a1c6; /* your accent color */
+  text-decoration: underline;
+}
+
+.attributes-list a:hover {
+  color: #ffffff;
+}

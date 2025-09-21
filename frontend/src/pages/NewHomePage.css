@@ -1,0 +1,35 @@
+.new-home-container {
+  height: 100vh;
+  width: 100%;
+  background: url('../assets/underwater.gif') no-repeat center center/cover;
+  display: flex;
+  justify-content: center; /* horizontal centering */
+  align-items: flex-start; /* vertical top alignment */
+  position: relative;
+  padding-top: 100px; /* adjust how far from top */
+}
+
+
+.overlay {
+  position: absolute;
+  top: 20%; /* move to 20% down from top */
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.5);
+  padding: 2rem 3rem;
+  border-radius: 15px;
+  text-align: center;
+}
+
+
+.welcome-text {
+  font-size: 3rem;
+  font-weight: bold;
+  color: white;
+  margin-bottom: 1rem;
+}
+
+.sub-text {
+  font-size: 1.5rem;
+  color: #f0f0f0;
+}
