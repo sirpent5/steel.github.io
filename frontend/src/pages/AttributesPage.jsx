@@ -5,7 +5,7 @@ const AttributesPage = () => {
   return (
     <div>
       <h1>Attributes Page</h1>
-      <p>This page will show the various attributes of your subscriptions.</p>
+      <p>- bubbles animation on HomePage from https://codepen.io/jonitrythall/pen/DBeeqJ</p>
     </div>
   );
 };

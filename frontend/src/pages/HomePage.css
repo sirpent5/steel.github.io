@@ -1,9 +1,12 @@
+/* frontend/src/pages/HomePage.css */
+
 .home-container {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
   background-color: #333;
+  position: relative; /* Make sure this is here for bubbles */
 }
 
 .logo-link {
@@ -15,8 +18,10 @@
 }
 
 .logo-link img {
-  width: 40%; /* Adjust the logo size here */
+  width: 15rem;
   height: auto;
+  display: block; /* Add this line to ensure the animation works */
+  animation: float 3s ease-in-out infinite;
 }
 
 .logo-link p {
@@ -24,4 +29,17 @@
   font-family: sans-serif;
   font-weight: bold;
   font-size: 1.5rem;
+}
+
+/* This is the keyframes animation */
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
 }
