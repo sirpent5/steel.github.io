@@ -4,34 +4,36 @@ const dotenv = require('dotenv');
 dotenv.config({ path: './backend/.env' });
 
 const { API_KEY } = process.env;
-const NETFLIX_SOURCE_ID = 203;
-const HULU_SOURCE_ID = 157;
-const DISNEY_SOURCE_ID = 372;
-const AMAZON_SOURCE_ID = 26;
-const AppleTVPlus_SOURCE_ID = 371;
-const PEACOCK_SOURCE_ID = 388;
-const MAX_SOURCE_ID = 387;
-const TUBI_SOURCE_ID = 296;
-const PARAMOUNT_SOURCE_ID = 444;
-const FUBO_SOURCE_ID = 373;
-const CRUNCHYROLL_SOURCE_ID = 79;
+const SOURCES = {
+  NETFLIX: 203,
+  HULU: 157,
+  DISNEY: 372,
+  AMAZON: 26,
+  AppleTVPlus: 371,
+  PEACOCK: 388,
+  MAX: 387,
+  TUBI: 296,
+  PARAMOUNT: 444,
+  FUBO: 373,
+  CRUNCHYROLL: 79,
+};
 
 
 
-async function scrapeAndStore() {
+async function scrapeAndStore(SOURCE_ID) {
+  let count = 0;
   try {
-    const url = `https://api.watchmode.com/v1/list-titles/?source_ids=${DISNEY_SOURCE_ID}&apiKey=${API_KEY}`;
+    const url = `https://api.watchmode.com/v1/list-titles/?source_ids=${SOURCE_ID}&apiKey=${API_KEY}`;
     let response = await fetch(url);
     let movies = await response.json();
 
-    count = 0;
     // console.log(movies);
 
     while (count < movies.titles.length)
     {
       if (count < 20)
       {
-        console.log(movies.titles[count].id + ":" + movies.titles[count].title);
+        console.log(movies.titles[count].watchid + ":" + movies.titles[count].title);
       }
         count ++;
     }
@@ -42,7 +44,20 @@ catch (error) {
   console.log("Total movies found: " + count);}
 
 // You can call this function to run it
-scrapeAndStore();
+async function main() {
+  for (const sourceName in SOURCES) {
+    // if (Object.hasOwnProperty.call(SOURCES, sourceName)) {
+      const SOURCE_ID = SOURCES[sourceName];
+      console.log(`\n--- Starting scrape for ${sourceName} ---`);
+      await scrapeAndStore(SOURCE_ID);
+      console.log(`--- Finished scrape for ${sourceName} ---`);
+    
+  }
+  console.log('\nAll scraping tasks completed.');
+}
+
+// Call the main function to start the process
+main();
 
 
 // //const fetch = require('node-fetch');
