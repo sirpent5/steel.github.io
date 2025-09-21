@@ -17,7 +17,7 @@ const AppContent = () => {
       {showHeader && <Header />}
       <div className="content">
         <Routes>
-          <Route path="/" element={<EvaluatePage />} /> {/* The original landing page */}
+          <Route path="/" element={<HomePage />} /> {/* The original landing page */}
           <Route path="/app" element={<NewHomePage />} /> {/* The new main homepage */}
           <Route path="/evaluate" element={<EvaluatePage />} />
           <Route path="/about" element={<AboutPage />} />

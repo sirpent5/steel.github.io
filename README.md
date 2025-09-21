@@ -28,4 +28,4 @@ their subscription services. <br>
 ## Team Members
 Tessa Wood - tessatonep@gmail.com <br>
 Mia Schnelker - mia@schnelker.org <br>
-Christine Glascott - 
+Christine Glascott - cag301@pitt.edu
