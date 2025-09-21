@@ -4,7 +4,7 @@ dotenv.config({ path: './backend/.env' });
 
 const testConnection = async () => {
     let connection;
-
+    
     try {
         connection = await mysql.createConnection({
             host: process.env.DB_HOST,
