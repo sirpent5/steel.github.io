@@ -43,10 +43,21 @@ async function addContentWithService(contentId, contentTitle, serviceId, conn) {
 
 // add a movie to the content and sources
 async function addContentWithGenre(contentId, genreId, conn) {
+    const [rows] = await conn.query(
+        'SELECT id FROM content WHERE id = ?',
+        [contentId]
+    );
+
+    // don't add movie if it's not provided but one of the supported streaming services
+    if (rows.length == 0)
+    {
+        return;
+    }
+
     await conn.query(
-        `INSERT INTO content_genres (content_id, service_id)
+        `INSERT INTO content_genres (content_id, genre_id)
         VALUES (?, ?)
-        ON DUPLICATE KEY UPDATE last_updated = CURRENT_TIMESTAMP`,
+        ON DUPLICATE KEY UPDATE content_id = VALUES(content_id)`,
         [contentId, genreId]
     );
 }

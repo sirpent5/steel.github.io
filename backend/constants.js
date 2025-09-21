@@ -3,7 +3,7 @@
 const SERVICES = 
 {
   NETFLIX: { id: 203, name: "Netflix" },
-  HULU: { id: 157, name: "Max" },
+  HULU: { id: 157, name: "Hulu" },
   DISNEY_PLUS: { id: 372, name: "Disney+" },
   AMAZON_ID: { id: 26, name: "AMAZON" },
   PEACOCK: { id: 388, name: "Peacock" },
