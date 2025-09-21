@@ -1,5 +1,5 @@
 const fetch = require("node-fetch");
-const pool = require("./backend/db");
+const pool = require("./db");
 
 const API_KEY = process.env.API_KEY;
 
