@@ -1,119 +1,68 @@
-// // // const fetch = require("node-fetch");
 const pool = require("./db");
 const dotenv = require('dotenv');
 dotenv.config({ path: './backend/.env' });
 
+// Ensure these functions are correctly exported from add-test.js
+const { addStreamingService, addContentWithService } = require('./add-test.js');
+
 const { API_KEY } = process.env;
+
 const SOURCES = {
-  NETFLIX: 203,
-  HULU: 157,
-  DISNEY: 372,
-  AMAZON: 26,
-  AppleTVPlus: 371,
-  PEACOCK: 388,
-  MAX: 387,
-  TUBI: 296,
-  PARAMOUNT: 444,
-  FUBO: 373,
-  CRUNCHYROLL: 79,
+  NETFLIX: { id: 203, name: 'Netflix' },
+  HULU: { id: 157, name: 'Hulu' },
+  DISNEY: { id: 372, name: 'Disney Plus' },
+  AMAZON: { id: 26, name: 'Amazon' },
+  AppleTVPlus: { id: 371, name: 'AppleTVPlus' },
+  PEACOCK: { id: 388, name: 'Peacock' },
+  MAX: { id: 387, name: 'MAX' },
+  TUBI: { id: 296, name: 'Tubi' },
+  PARAMOUNT: { id: 444, name: 'Paramount' },
+  FUBO: { id: 373, name: 'Fubo' },
+  CRUNCHYROLL: { id: 79, name: 'Crunchyroll' },
 };
 
-
-
-async function scrapeAndStore(SOURCE_ID) {
-  let count = 0;
+async function allMovies(SERVICE_ID, SERVICE_NAME) {
+  
   try {
-    const url = `https://api.watchmode.com/v1/list-titles/?source_ids=${SOURCE_ID}&apiKey=${API_KEY}`;
-    let response = await fetch(url);
-    let movies = await response.json();
+    conn = await pool.getConnection();
 
-    // console.log(movies);
+    const url = `https://api.watchmode.com/v1/list-titles/?source_ids=${SERVICE_ID}&apiKey=${API_KEY}`;
+    const response = await fetch(url);
+    const data = await response.json();
 
-    while (count < movies.titles.length)
-    {
-      if (count < 20)
-      {
-        console.log(movies.titles[count].watchid + ":" + movies.titles[count].title);
+    // Add streaming service to the database
+    await addStreamingService(SERVICE_ID, SERVICE_NAME, conn);
+
+    if (data.titles && data.titles.length > 0) {
+      console.log(`Successfully fetched ${data.titles.length} titles from ${SERVICE_NAME}.`);
+
+      // Add each movie and its service link to the database
+      for (const movie of data.titles) {
+        await addContentWithService(movie.id, movie.title, SERVICE_ID, conn);
       }
-        count ++;
+      console.log(`Successfully added all titles from ${SERVICE_NAME} to the database.`);
+    } else {
+      console.log(`No titles found for ${SERVICE_NAME}.`);
     }
-  }
-catch (error) {
-    console.error("Error during scraping and storing:", error);
-  }
-  console.log("Total movies found: " + count);}
 
-// You can call this function to run it
+  } catch (error) {
+    console.error(`Error during scraping and storing for ${SERVICE_NAME}:`, error);
+  }
+}
+
 async function main() {
+
+  let conn;
   for (const sourceName in SOURCES) {
-    // if (Object.hasOwnProperty.call(SOURCES, sourceName)) {
-      const SOURCE_ID = SOURCES[sourceName];
-      console.log(`\n--- Starting scrape for ${sourceName} ---`);
-      await scrapeAndStore(SOURCE_ID);
-      console.log(`--- Finished scrape for ${sourceName} ---`);
-    
+    const source = SOURCES[sourceName];
+    console.log(`\n--- Starting scrape for ${source.name} ---`);
+    await allMovies(source.id, source.name); // 👈 Correct: Use await here
+    console.log(`--- Finished scrape for ${source.name} ---`);
   }
   console.log('\nAll scraping tasks completed.');
+    conn.release();
+  await pool.end(); // 👈 Correct: End the pool to allow process to exit
 }
 
 // Call the main function to start the process
 main();
-
-
-// const fetch = require('node-fetch');
-// const dotenv = require('dotenv');
-// dotenv.config({ path: './backend/.env' });
-
-// const API_KEY = process.env.API_KEY;
-
-// async function getGenres() {
-//     try {
-//         const url = `https://api.watchmode.com/v1/genres/?apiKey=${API_KEY}`;
-//         const response = await fetch(url);
-//         const genres = await response.json();
-
-//         if (genres && genres.length > 0) {
-//             console.log("Here is a list of all genres:");
-//             console.log("-------------------------------");
-//             genres.forEach(genre => {
-//                 console.log(`ID: ${genre.id} - Name: ${genre.name}`);
-//             });
-//         } else {
-//             console.log("No genres found. Check your API key or connection.");
-//         }
-//     } catch (err) {
-//         console.error("Error fetching genres:", err);
-//     }
-// }
-
-// getGenres();
-
-
-
-//const fetch = require('node-fetch');
-// const dotenv = require('dotenv');
-// dotenv.config({ path: './backend/.env' });
-
-// const API_KEY = process.env.API_KEY;
-
-// async function getServices() {
-//     try {
-//         const url = `https://api.watchmode.com/v1/sources/?apiKey=${API_KEY}`;
-//         const response = await fetch(url);
-//         const sources = await response.json();
-
-//         if (sources && sources.length > 0) {
-//             console.log("Here is a list of all streaming services and their IDs:");
-//             console.log("-------------------------------------------------------");
-//             sources.forEach(source => {
-//                 console.log(`ID: ${source.id} - Name: ${source.name}`);
-//             });
-//         } else {
-//             console.log("No services found. Check your API key or connection.");
-//         }
-//     } catch (err) {
-//         console.error("Error fetching services:", err);
-//     }
-// }
-
-// getServices();

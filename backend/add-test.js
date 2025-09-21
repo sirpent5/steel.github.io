@@ -146,16 +146,8 @@ async function oneMovie(SERVICE_ID) {
  
 }
 
-oneMovie(NETFLIX_ID)
-    .then(() => {
-        // Once the oneMovie() promise resolves, gracefully end the connection pool
-        console.log("Ending database connection pool.");
-        return pool.end();
-    })
-    .then(() => {
-        console.log("Process exited successfully.");
-    })
-    .catch(err => {
-        console.error("Error ending the pool:", err);
-    });
 
+module.exports = {
+    addStreamingService,
+    addContentWithService
+};
