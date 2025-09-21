@@ -1,5 +1,7 @@
 // const fetch = require("node-fetch");
 const pool = require("./db");
+const dotenv = require('dotenv');
+dotenv.config({ path: './backend/.env' });
 
 const API_KEY = process.env.API_KEY;
 const NETFLIX_SOURCE_ID = 8;
@@ -10,7 +12,9 @@ async function scrapeAndStore() {
     const response = await fetch(url);
     const movies = await response.json();
 
-    if (movies.titles && movies.titles.length > 0) {
+
+    console.log(movies);
+    if (movies.titles > 0) {
       for (const movie of movies.titles) {
         await pool.execute(
           `INSERT INTO movies (watchmode_id, title, genres, sources, release_year, rating)
