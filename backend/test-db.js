@@ -1,9 +1,10 @@
 const mysql = require('mysql2/promise');
 const dotenv = require('dotenv');
-dotenv.config();
+dotenv.config({ path: './backend/.env' });
 
 const testConnection = async () => {
     let connection;
+
     try {
         connection = await mysql.createConnection({
             host: process.env.DB_HOST,
