@@ -33,7 +33,7 @@ const App = () => {
         setJaccardIndex(null);
 
         try {
-            const response = await fetch(`http://localhost:5000/api/compare-services?serviceA=${serviceA}&serviceB=${serviceB}`);
+            const response = await fetch(`http://localhost:5000/api/compare-services?serviceA=${Number(serviceA)}&serviceB=${Number(serviceB)}`);
             
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
