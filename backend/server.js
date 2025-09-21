@@ -9,7 +9,10 @@ const pool = require('./db');
 const app = express();
 app.use(cors());
 app.use(express.json());
-
+app.use(cors({
+    origin: 'http://localhost:5173', // Your React app's URL
+    methods: ['GET', 'POST']
+}));
 app.get('/api/compare-services', async (req, res) => {
     try {
         const serviceIdA = Number(req.query.serviceA);
