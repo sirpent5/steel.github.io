@@ -3,7 +3,6 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
-  
   background-color: #333;
   position: relative; /* Make sure this is here for bubbles */
 }
@@ -97,7 +96,16 @@ body {
     
     /* Initially hide the fish until the animation starts */
     visibility: hidden;
+       transition: transform 0.3s;
 }
+
+
+.finalFish:hover {
+    transform: scale(1.5);
+ 
+    cursor: pointer;
+}
+
 
 /* Corrected keyframes for the final fish */
 @keyframes swim-to-center {
@@ -134,3 +142,23 @@ body {
   }
   
 }
+
+.swim-away {
+    animation: swim-to-corner 1s forwards; /* New animation for the fish to swim away */
+}
+
+@keyframes swim-to-corner {
+  0% {
+    visibility: visible;
+    transform: translateX(-250);
+  }
+  1% {
+    visibility: hidden;
+    transform: translateX(-300);
+  }
+  100% {
+    visibility: visible;
+    /* Correctly centers the fish */
+    transform: translateX(--500);
+  }
+ }
