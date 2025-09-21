@@ -1,32 +1,31 @@
 // backend/server.js
 const express = require('express');
 const cors = require('cors');
-const mysql = require('mysql');
+const { compareServices } = require('./queries');
+const { SERVICES, GENRES } = require('./constants'); 
 
 const app = express();
-app.use(cors()); // Allows frontend requests from a different origin
+app.use(cors());
+app.use(express.json());
 
-const db = mysql.createConnection({
-    host: 'localhost',
-    user: 'your_username',
-    password: 'your_password',
-    database: 'your_database_name'
+app.get('/api/compare-services', async (req, res) => {
+    try {
+        const serviceIdA = parseInt(req.query.serviceA, 10);
+        const serviceIdB = parseInt(req.query.serviceB, 10);
+        console.log(`Comparing services: ${serviceIdA} and ${serviceIdB}`);
+        if (!serviceIdA || !serviceIdB) {
+            return res.status(400).json({ error: 'Two service IDs are required' });
+        }
+        
+        const jaccardIndex = await compareServices(serviceIdA, serviceIdB);
+        res.json({ jaccardIndex });
+    } catch (error) {
+        console.error('Error comparing services:', error);
+        res.status(500).json({ error: 'Failed to compare services' });
+    }
 });
 
-db.connect(err => {
-    if (err) throw err;
-    console.log('MySQL connected.');
-});
-
-// API endpoint to fetch data
-app.get('/api/data', (req, res) => {
-    const sql = 'SELECT id, title, body FROM your_table'; // Adjust table and column names
-    db.query(sql, (err, results) => {
-        if (err) return res.status(500).send(err);
-        res.json(results);
-    });
-});
-
-app.listen(5000, () => {
-    console.log('Server running on port 5000');
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
 });
